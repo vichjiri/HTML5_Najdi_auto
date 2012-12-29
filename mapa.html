@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+   <head>
+      <title>Bing mapa</title>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+      <script type="text/javascript" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script>
+
+      <script type="text/javascript">
+        navigator.geolocation.getCurrentPosition(GetLocation);
+         var map = null;
+
+        function GetLocation(location) {
+          map = new Microsoft.Maps.Map(document.getElementById("mapDiv"), 
+          {
+            credentials: "AqR7DVsxlwsP1g-T3LN9gamfLOy4UHtQoiiupI0gc3g8gTwESfqt-IeT_hH3BEP5",
+            center:       new Microsoft.Maps.Location(location.coords.latitude, location.coords.longitude),
+            mapTypeId:    Microsoft.Maps.MapTypeId.road,
+            zoom:         13
+          });
+
+          // Retrieve the location of the map center 
+            var center = map.getCenter();
+            
+            // Add a pin to the center of the map
+            var pin = new Microsoft.Maps.Pushpin(center, {text: 'A'}); 
+            map.entities.push(pin);
+        }  
+      </script>
+   </head>
+   <body>
+      <div id='mapDiv' style="position:relative; width: 100%; height: 600px"></div>       
+   </body>
+</html>
