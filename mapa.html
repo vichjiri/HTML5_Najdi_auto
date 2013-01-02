@@ -31,20 +31,12 @@
         mapa = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
 
         // vytvoreni znacky auta
-        var marker2 = new google.maps.Marker({
+        var car_marker = new google.maps.Marker({
           position: car,
           map:      mapa,
           icon:     'car.png',
           title:    'Auto!'
         });
-      }
-
-      // vrati stred mapy
-      function getCenter(myLocation){
-        return new google.maps.LatLng(
-          ((myLocation.lat() + this.car.lat()) / 2) ,
-          ((myLocation.lng() + this.car.lng()) / 2)
-        );
       }
 
       // nacteni GPS souradnic
@@ -53,15 +45,18 @@
           pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude); 
 
           //vytvoreni znacky me polohy
-          var marker = new google.maps.Marker({
+          var my_marker = new google.maps.Marker({
             position: pos,
             map:      mapa,
             icon:     'my.png',
             title:    'Tady jsem!!'
           });
 
-          //nastaveni stredu mapy
-          mapa.setCenter(getCenter(pos));
+          //nastaveni stredu mapy a zoomu
+          var bounds = new google.maps.LatLngBounds(car, pos);
+          mapa.setCenter(bounds.getCenter());
+          mapa.fitBounds(bounds);
+           
 
         }, function() {
           handleNoGeolocation(true);
