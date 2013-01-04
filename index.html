@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Najdi auto</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="style.css">
+
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
+    <script type="text/javascript" src="script.js"></script>
+
+    <script type="text/javascript">
+      var pos;
+      
+      geoLocation();
+
+      setInterval(function(){geoLocation();}, 1500);
+
+      // ulozi gps souradnice do localStorrage
+      function saveGps(){
+        if(confirm('Opravdu chcete uložit tuto pozici?')){
+          if(pos != null){
+            localStorage.setItem("carLat", pos.lat());  
+            localStorage.setItem("carLng", pos.lng());  
+            alert('Pozice automobilu uložena');
+            return true;
+          }else{
+            alert('Chyba: GPS není inicializována. Opakujte uložení.');
+            return false;
+          }
+        }else{
+          return false;
+        }      
+      }
+
+    </script>
+  </head>
+  <body>
+    <a href="" onclick="saveGps(); return false;">Uložit pozici</a><br>
+    <a href="mapa.html">Najít auto</a><br>
+  </body>
+</html>
