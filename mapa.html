@@ -19,14 +19,16 @@
       var mapa;
       var pos;
       var markers = [];
-      var car = new google.maps.LatLng(50.501199,15.504456);
+      var car = new google.maps.LatLng(50.501199, 15.504456);
 
       // inicializace mapy
-      function initialize() {
+      function initMap() {
         var mapOptions = {
-          zoom: 12,
-          mapTypeId: google.maps.MapTypeId.ROADMAP
+          zoom      : 12,
+          mapTypeId : google.maps.MapTypeId.ROADMAP
         };
+
+        geoLocation();
 
         // vytvoreni mapy
         mapa = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
@@ -39,37 +41,43 @@
           title:    'Auto!'
         });
         markers.push(car_marker);
+
+        // casovac
+        var myVar = setInterval(function(){refreshMap();}, 1500);
       }
 
-      // nacteni gps souradnic
+      // ziskani gps souradnic
       function geoLocation(){
         if(navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(function(position) {
-            pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude); 
-
-           
-            //vytvoreni znacky me polohy
-            var my_marker = new google.maps.Marker({
-              position: pos,
-              map:      mapa,
-              icon:     'my.png',
-              title:    'Tady jsem!!'
-            });
-            markers.push(my_marker);
-
-            cleanMarker();
-
-            //nastaveni stredu mapy a zoomu
-            var bounds = new google.maps.LatLngBounds(car, pos);
-            mapa.setCenter(bounds.getCenter());
-            mapa.fitBounds(bounds);          
-
+            pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
           }, function() {
             handleNoGeolocation(true);
           });      
         } else {
           handleNoGeolocation(false);
         }
+      }
+
+      // nacte gps, vytvori znacku pozice a udela bounds
+      function refreshMap(){;  
+        geoLocation();
+
+        //vytvoreni znacky me polohy
+        var my_marker = new google.maps.Marker({
+          position: this.pos,
+          map:      mapa,
+          icon:     'my.png',
+          title:    'Tady jsem!'
+        });
+        markers.push(my_marker);
+
+        cleanMarker();
+
+        //nastaveni stredu mapy a zoomu
+        var bounds = new google.maps.LatLngBounds(car, pos);
+        mapa.setCenter(bounds.getCenter());
+        mapa.fitBounds(bounds);         
       }
 
       // vycisti pole od zbytecnych markeru
@@ -79,11 +87,8 @@
         }
       }
 
-      // casovac
-      var myVar = setInterval(function(){geoLocation()}, 1500);
-      
       // inicializace mapy
-      google.maps.event.addDomListener(window, 'load', initialize);
+      google.maps.event.addDomListener(window, 'load', initMap);
     </script>
   </head>
   <body>
