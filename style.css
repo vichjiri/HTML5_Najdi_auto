@@ -12,30 +12,39 @@ html, body, #map_canvas {
 }
 
 h1{
-	background   : none;
-	color        : white;
-	padding      : 20px;
-	text-align   : left;
-	margin-top   : 0;
-	margin-bottom: 10px;
+	background: none;
+	color     : white;
+	padding   : 15px;
+	margin    : 0;
+	margin-top: 0;
+	text-align: left;
 	
+	font-size : 2.8em;
 }
 
 button{
-	background: #007A00;
-	color     : white;
-	text-align: left;
-	border    : none;
-	display   : block;
-
-	margin-left: 20px;
-	margin-top:  20px;
-
-	width: 70%;
-	min-height: 20%;
-
-	padding   : 20px;
-
-
+	background   : #007A00;
+	color        : white;
+	text-align   : left;
+	border       : none;
+	display      : block;
 	
+	font-size    : 1em;
+	margin-left  : 20px;
+	margin-bottom: 20px;
+	padding      : 15px;
+	
+	width        : 70%;
+	min-height   : 20%;	
+}
+
+button:active{
+	background   : #008000;	
+}
+
+#coord{
+	margin-top: 10px;
+	font-size: 0.8em;
+	line-height: 1.2;
+	display: block;
 }

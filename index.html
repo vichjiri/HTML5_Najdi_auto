@@ -14,7 +14,10 @@
       
       geoLocation();
 
-      setInterval(function(){geoLocation();}, 1500);
+      setInterval(function(){
+        geoLocation();
+        document.getElementById('coord').innerHTML = pos.lat().toFixed(7) + "<br>" + pos.lng().toFixed(7);
+      }, 1500);
 
       // ulozi gps souradnice do localStorrage
       function saveGps(){
@@ -38,10 +41,12 @@
   <body>
     <h1>Najdi auto</h1>
     <button onclick="saveGps(); return false;">
-        Uložit pozici
+        Uložit pozici<br>
+        <div id="coord">Probíhá inicializace GPS<br><br></div>
     </button>
     <button onclick="window.location.href='mapa.html';">
-        Najít auto
+        Najít auto<br><br>
     </button>
+    <div style="clear: both;"></div>
   </body>
 </html>
