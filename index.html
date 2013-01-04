@@ -16,34 +16,17 @@
 
       setInterval(function(){
         geoLocation();
+        
         if(pos!=null)
           document.getElementById('coord').innerHTML = pos.lat().toFixed(7) + "<br>" + pos.lng().toFixed(7);
         if(localStorage.getItem("carLat")!=null){
           document.getElementById('coord_car').innerHTML = 
-            localStorage.getItem("carLat").substring(0, 10) + "<br>" + 
-            localStorage.getItem("carLat").substring(0, 10);
+            localStorage.getItem("carLat").substring(0, 11) + "<br>" + 
+            localStorage.getItem("carLat").substring(0, 11);
         }else{
             document.getElementById('coord_car').innerHTML = "Není uložená žádna poloha<br><br>";
         }
       }, 1500);
-
-
-      // ulozi gps souradnice do localStorrage
-      function saveGps(){
-        if(confirm('Opravdu chcete uložit tuto pozici?')){
-          if(pos != null){
-            localStorage.setItem("carLat", pos.lat());  
-            localStorage.setItem("carLng", pos.lng());  
-            alert('Pozice automobilu uložena');
-            return true;
-          }else{
-            alert('Chyba: GPS není inicializována. Opakujte uložení.');
-            return false;
-          }
-        }else{
-          return false;
-        }      
-      }
 
     </script>
   </head>

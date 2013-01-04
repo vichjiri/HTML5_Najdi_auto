@@ -1,5 +1,3 @@
- 
-
 // inicializace mapy
 function initMap() {
   var mapOptions = {
@@ -58,7 +56,7 @@ function refreshMap(){
 
 // vycisti pole od zbytecnych markeru
 function cleanMarker(){
-  for (var i = 1; i < markers.length-2; i++) {
+  for (var i = 1; i < markers.length-1; i++) {
     markers[i].setMap(null);
   }
 }
@@ -70,10 +68,19 @@ function setCenter(){
   mapa.fitBounds(bounds); 
 }
 
-function getLocalStorrage(variable){
-  if(localStorage.getItem(variable)){
-      return localStorage.getItem(variable);
-  }else{
+// ulozi gps souradnice do localStorrage
+function saveGps(){
+  if(confirm('Opravdu chcete uložit tuto pozici?')){
+    if(pos != null){
+      localStorage.setItem("carLat", pos.lat());  
+      localStorage.setItem("carLng", pos.lng());  
+      alert('Pozice automobilu uložena');
+      return true;
+    }else{
+      alert('Chyba: GPS není inicializována. Opakujte uložení.');
       return false;
-  }
+    }
+  }else{
+    return false;
+  }      
 }
