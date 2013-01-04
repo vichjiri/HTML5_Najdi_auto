@@ -42,7 +42,7 @@ button:active{
 	background   : #008000;	
 }
 
-#coord{
+#coord, #coord_car{
 	margin-top: 10px;
 	font-size: 0.8em;
 	line-height: 1.2;
